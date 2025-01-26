@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOCHAM CIĘ</title>
+    <style>
+        body {
+            font-family: Times New Roman, serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1;
+            color: #d12d50;
+            text-align: center;
+            overflow: hidden;
+            padding: 10px;
+            position: relative;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 20px 0;
+        }
+        img {
+            width: 250px;
+            height: auto;
+            margin-bottom: 20px;
+            max-width: 100%;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            min-width: 150px;
+        }
+        button#yes {
+            background-color: #ff69b4;
+            color: white;
+        }
+        button#no {
+            background-color: #fff;
+            color: #333;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #message {
+            font-size: 1.2rem;
+            color: #d12d50;
+            display: none;
+            max-width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 80px; 
+            animation: float 3s infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-150px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #gif {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;  
+            display: none;
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            button {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+            #message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <img src="https://media1.tenor.com/m/2x2bSwdy5ZgAAAAd/puss-in-boots-cat.gif">
+    <h1>❤Will you be my Valentine?❤</h1>
+    <div class="button-container">
+        <button id="yes" onmouseover="showGif()" onmouseout="hideGif()" onclick="displayMessage()">Yes🤩</button>
+        <button id="no" onmouseover="moveButton()">No😭</button>
+    </div>
+
+    <div id="message"></div>
+    
+    <img id="gif" src="https://i.giphy.com/NBs1mJNW8qCPrsauIN.webp">
+
+    <script>
+        function moveButton() {
+            const button = document.getElementById("no");
+
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            const buttonWidth = button.offsetWidth;
+            const buttonHeight = button.offsetHeight;
+
+            const newX = Math.random() * (windowWidth - buttonWidth);
+            const newY = Math.random() * (windowHeight - buttonHeight);
+
+            button.style.position = 'absolute';
+            button.style.left = `${newX}px`;
+            button.style.top = `${newY}px`;
+        }
+
+        function showConfetti() {
+            confetti({
+                particleCount: 200,
+                startVelocity: 40,
+                spread: 360,
+                origin: {
+                    x: 0.5,
+                    y: 0.5
+                },
+                zIndex: 9999
+            });
+        }
+
+        function displayMessage() {
+            document.body.innerHTML = '';
+            const message = document.createElement('div');
+            message.style.fontSize = '1.2rem';
+            message.style.color = '#d12d50';
+            message.style.textAlign = 'center';
+            message.style.marginTop = '2%';
+            message.style.padding = '5px';
+            message.style.backgroundColor = '#fff';
+            message.style.borderRadius = '15px';
+            message.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+            message.style.animation = 'pulse 10s infinite'; 
+            message.style.position = 'relative'; 
+            
+            for (let i = 0; i < 30; i++) { 
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('heart');
+                heart.style.left = `${Math.random() * 100}vw`; 
+                heart.style.top = `${Math.random() * 100}vh`;  
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(heart);
+            }
+
+            message.innerHTML = ` 
+                <img src="https://c.tenor.com/wfdSCMP3BVEAAAAd/tenor.gif" style="width: 250px; height: auto; margin-bottom: 20px;">
+                <br>Jeeej prawidłowa odpowiedź kochanie! (nie żebyś miała jakiekolwiek inne wyjście hehehe)<br>
+                Strasznie się cieszę, że mogę z Tobą dzielić każdy dzień i marzę o tym, żebyś <br>
+                była moją walentynką nie tylko w walentynki, ale też w każdy inny dzień❤ <br>
+                Jesteś niesamowitą osobą i codziennie dziękuję (Krysi), że Cię mam💕 <br>
+                Wiem, że może to za wcześnie, ale chcę Ciebie do końca mojej wieczności <br>
+                (wow powiedziałem to)<br>
+                (napisałem*, ale szczerze mam to na myśli) <br>
+                Kocham Cię strasznie moja kuleczko ❤
+                <br><br>
+                Twój Eryk💘😘
+            `;
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                showConfetti();
+                showConfetti();
+            }, 500);
+        }
+
+        function showGif() {
+            const gif = document.getElementById("gif");
+            gif.style.display = "block";  
+        }
+
+        function hideGif() {
+            const gif = document.getElementById("gif");
+            gif.style.display = "none"; 
+        }
+    </script>
+</body>
+</html>
